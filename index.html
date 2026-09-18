@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NORTHSTAR EdTech — NCERT & GSEB Study Hub</title>
+    <!-- Apple Standard SF Pro Font -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;500;600;700&family=SF+Pro+Text:wght@400;500;600&display=swap">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <header class="navbar-wrapper">
+        <nav class="navbar">
+            <div class="nav-left">
+                <a href="#" class="brand-logo">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                    </svg>
+                    <span>NORTHSTAR <small>EdTech</small></span>
+                </a>
+            </div>
+            
+            <div class="nav-right">
+                <a href="https://northstartracker.vercel.app/" target="_blank" class="nav-link tracker-btn">
+                    <span>NORTHSTAR Tracker</span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                </a>
+                <button class="icon-btn" onclick="openAdminModal()" title="Admin Configuration">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                </button>
+                <div id="authNavArea">
+                    <button class="btn btn-secondary" onclick="openAuthModal('signin')">Sign In</button>
+                    <button class="btn btn-primary" onclick="openAuthModal('signup')">Sign Up</button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container">
+        <!-- HERO BANNER -->
+        <section class="hero-section">
+            <span class="badge">NCERT & GSEB Excellence</span>
+            <h1>Premier Class 9 & 10 Study Library</h1>
+            <p>Access structured chapter notes for Mathematics, Science, and Social Science tailored for GSEB and NCERT students in Gujarati and English mediums.</p>
+
+            <div class="tracker-ad-card">
+                <div class="ad-content">
+                    <span class="ad-pill">Featured Platform</span>
+                    <h3>Track your daily revision with <strong>NORTHSTAR Tracker</strong></h3>
+                    <p>Set custom study goals, schedule GSEB paper practice, and monitor progress seamless across devices.</p>
+                </div>
+                <a href="https://northstartracker.vercel.app/" target="_blank" class="btn btn-primary">Open Tracker ↗</a>
+            </div>
+        </section>
+
+        <!-- SELECTION CONTROL TOOLBAR -->
+        <section class="control-panel">
+            <div class="segments-container">
+                <div class="segment-group">
+                    <label class="group-label">Grade Standard</label>
+                    <div class="segmented-control" id="classSegment">
+                        <button class="segment-btn active" onclick="setClass('10')">Class 10</button>
+                        <button class="segment-btn" onclick="setClass('9')">Class 9</button>
+                    </div>
+                </div>
+
+                <div class="segment-group">
+                    <label class="group-label">Study Medium</label>
+                    <div class="segmented-control" id="mediumSegment">
+                        <button class="segment-btn active" onclick="setMedium('gujarati')">ગુજરાતી માધ્યમ</button>
+                        <button class="segment-btn" onclick="setMedium('english')">English Medium</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SUBJECT PILLS -->
+            <div class="subject-pills" id="subjectPills">
+                <button class="pill active" onclick="setSubject('all')">All Subjects</button>
+                <button class="pill" onclick="setSubject('maths')">Mathematics</button>
+                <button class="pill" onclick="setSubject('science')">Science</button>
+                <button class="pill" onclick="setSubject('ss')">Social Science</button>
+            </div>
+        </section>
+
+        <!-- CHAPTER MATERIAL GRID -->
+        <section class="materials-section">
+            <div class="section-header">
+                <h2 id="gridTitle">Class 10 — Gujarati Medium Notes</h2>
+                <div class="search-box">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    <input type="text" id="searchInput" placeholder="Search chapter title..." oninput="renderChapters()">
+                </div>
+            </div>
+
+            <div class="chapter-grid" id="chapterGrid">
+                <!-- Injected via JavaScript -->
+            </div>
+        </section>
+
+        <!-- COMING SOON SECTION -->
+        <section class="coming-soon-banner">
+            <div class="cs-badge">Coming Soon !!</div>
+            <h2>Full Textbook Solutions & IMP Board Question Papers</h2>
+            <p>Our team is digitizing GSEB Board IMP Question Banks, Exemplar Solutions, and Blueprint Sample Papers for 2026-2027.</p>
+        </section>
+
+        <!-- FAQS & CHAT SECTION -->
+        <section class="support-section">
+            <div class="faq-container">
+                <h2>Frequently Asked Questions</h2>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span>How do I open and download the chapter PDF notes?</span>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Click the "Download Notes" button on any chapter card. You will be safely redirected through our verification step on Linkvertise to access the secure Google Drive PDF file.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span>Are these materials aligned with the latest GSEB / NCERT syllabus?</span>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Yes! All content is crafted precisely according to the latest NCERT guidelines and GSEB Board examination curriculum for Class 9 and 10.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span>What is NORTHSTAR Tracker?</span>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>NORTHSTAR Tracker is our web dashboard tool for students to maintain daily study hours, monitor syllabus progress, and stay organized throughout the academic year.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CHAT & AI TEASER CARD -->
+            <div class="chat-card">
+                <div class="ai-header">
+                    <span class="ai-sparkle">✨ NORTHSTAR AI Assistant</span>
+                    <span class="cs-pill">Coming Soon !!</span>
+                </div>
+                <h3>Ask Doubts & Solve Concepts Instantly</h3>
+                <p>An intelligent AI tutor trained on GSEB & NCERT Science and Mathematics textbooks will be integrated right here.</p>
+
+                <div class="chat-mockup">
+                    <div class="chat-msg bot">Hello! Need quick help understanding Science Chapter 1?</div>
+                    <div class="chat-msg user">Can you explain chemical balancing?</div>
+                    <div class="chat-msg bot disabled">AI Smart Solver is currently in private beta testing.</div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <p>© 2026 NORTHSTAR EdTech. Designed strictly using Apple Human Interface Guidelines.</p>
+        <p><a href="https://northstartracker.vercel.app/" target="_blank">NORTHSTAR Tracker</a> • Class 9 & 10 GSEB / NCERT Hub</p>
+    </footer>
+
+    <!-- REDIRECTION LINKVERTISE MODAL -->
+    <div class="modal-backdrop" id="linkvertiseModal">
+        <div class="modal-card">
+            <div class="modal-icon">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </div>
+            <h3 id="modalChapterTitle">Opening Study Material</h3>
+            <p>You are being redirected to Linkvertise. Complete the quick verification steps on the destination page to unlock your file download.</p>
+            <div class="modal-actions">
+                <button class="btn btn-secondary" onclick="closeLinkvertiseModal()">Cancel</button>
+                <a href="#" id="modalContinueBtn" target="_blank" class="btn btn-primary" onclick="closeLinkvertiseModal()">Continue to File ↗</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- AUTHENTICATION MODAL -->
+    <div class="modal-backdrop" id="authModal">
+        <div class="modal-card auth-card">
+            <button class="close-icon-btn" onclick="closeAuthModal()">✕</button>
+
+            <!-- SIGN IN FORM -->
+            <div id="signinForm">
+                <h3>Welcome Back</h3>
+                <p class="auth-subtext">Sign in to sync your study bookmarks.</p>
+                <div class="input-group">
+                    <label>Email Address</label>
+                    <input type="email" id="signinEmail" placeholder="student@example.com">
+                </div>
+                <div class="input-group">
+                    <label>Password</label>
+                    <input type="password" id="signinPass" placeholder="••••••••">
+                </div>
+                <div class="auth-links">
+                    <a href="#" onclick="switchAuthTab('forgot')">Forgot Password?</a>
+                </div>
+                <button class="btn btn-primary btn-full" onclick="handleAuthSubmit('signin')">Sign In</button>
+                <p class="auth-switch">Don't have an account? <a href="#" onclick="switchAuthTab('signup')">Sign Up</a></p>
+            </div>
+
+            <!-- SIGN UP FORM -->
+            <div id="signupForm" class="hidden">
+                <h3>Create Account</h3>
+                <p class="auth-subtext">Join NORTHSTAR EdTech for full access.</p>
+                <div class="input-group">
+                    <label>Full Name</label>
+                    <input type="text" id="signupName" placeholder="Student Name">
+                </div>
+                <div class="input-group">
+                    <label>Email Address</label>
+                    <input type="email" id="signupEmail" placeholder="student@example.com">
+                </div>
+                <div class="input-group">
+                    <label>Password</label>
+                    <input type="password" id="signupPass" placeholder="••••••••">
+                </div>
+                <button class="btn btn-primary btn-full" onclick="handleAuthSubmit('signup')">Create Account</button>
+                <p class="auth-switch">Already have an account? <a href="#" onclick="switchAuthTab('signin')">Sign In</a></p>
+            </div>
+
+            <!-- FORGOT PASSWORD FORM -->
+            <div id="forgotForm" class="hidden">
+                <h3>Reset Password</h3>
+                <p class="auth-subtext">Enter your registered email for an OTP reset code.</p>
+                <div class="input-group">
+                    <label>Registered Email</label>
+                    <input type="email" id="forgotEmail" placeholder="student@example.com">
+                </div>
+                <div id="otpSection" class="hidden">
+                    <div class="input-group">
+                        <label>Enter Demo OTP (Use 7777)</label>
+                        <input type="text" id="otpCode" placeholder="7777">
+                    </div>
+                    <div class="input-group">
+                        <label>New Password</label>
+                        <input type="password" id="newPass" placeholder="••••••••">
+                    </div>
+                </div>
+                <button class="btn btn-primary btn-full" id="forgotActionBtn" onclick="handleAuthSubmit('forgot')">Send Reset Code</button>
+                <p class="auth-switch"><a href="#" onclick="switchAuthTab('signin')">Back to Sign In</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ADMIN MODAL (LOCKED WITH PASSCODE: RONALDO7) -->
+    <div class="modal-backdrop" id="adminModal">
+        <div class="modal-card admin-card">
+            <button class="close-icon-btn" onclick="closeAdminModal()">✕</button>
+            
+            <div id="adminLockScreen">
+                <div class="modal-icon">🔒</div>
+                <h3>Admin Portal Locked</h3>
+                <p>Enter the master security key to configure custom Linkvertise redirection links.</p>
+                <div class="input-group">
+                    <input type="password" id="adminPassInput" placeholder="Enter Passcode (RONALDO7)">
+                </div>
+                <button class="btn btn-primary btn-full" onclick="verifyAdminPasscode()">Unlock Portal</button>
+            </div>
+
+            <div id="adminDashboard" class="hidden">
+                <div class="admin-header">
+                    <h3>Linkvertise Link Manager</h3>
+                    <button class="btn-text-danger" onclick="lockAdminPortal()">Lock & Exit</button>
+                </div>
+                <p class="auth-subtext">Set destination URLs for individual chapters.</p>
+                
+                <div class="admin-inputs">
+                    <div class="input-group">
+                        <label>Select Target Chapter</label>
+                        <select id="adminChapterSelect"></select>
+                    </div>
+                    <div class="input-group">
+                        <label>Linkvertise Target URL</label>
+                        <input type="url" id="adminUrlInput" placeholder="https://linkvertise.com/your-id/..." />
+                    </div>
+                    <button class="btn btn-primary btn-full" onclick="saveAdminLink()">Update Link</button>
+                </div>
+
+                <div class="admin-saved-list">
+                    <h4>Saved Custom Overrides</h4>
+                    <ul id="adminSavedList"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
