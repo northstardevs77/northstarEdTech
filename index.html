@@ -1,295 +1,1282 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-full scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NORTHSTAR EdTech — NCERT & GSEB Study Hub</title>
-    <!-- Apple Standard SF Pro Font -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;500;600;700&family=SF+Pro+Text:wght@400;500;600&display=swap">
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NORTHSTAR EdTech - GSEB & NCERT Study Portal</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            apple: {
+              bg: '#F5F5F7',
+              card: 'rgba(255, 255, 255, 0.8)',
+              border: 'rgba(225, 225, 230, 0.7)',
+              accent: '#0071E3',
+              accentHover: '#0077ED',
+              aqua: '#30B0C7',
+              ice: '#EBF4FF',
+              text: '#1D1D1F',
+              secondary: '#86868B'
+            }
+          },
+          fontFamily: {
+            sans: ['-apple-system', 'BlinkMacSystemFont', 'San Francisco', 'SF Pro Text', 'Segoe UI', 'Roboto', 'sans-serif']
+          },
+          boxShadow: {
+            'apple': '0 4px 30px rgba(0, 0, 0, 0.05)',
+            'apple-hover': '0 10px 40px rgba(0, 113, 227, 0.12)',
+            'glass': '0 8px 32px 0 rgba(31, 38, 135, 0.07)'
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Phosphor Icons for Apple-like clean vectors -->
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+  <style>
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f1f5;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #c5c5d0;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #a0a0b0;
+    }
+
+    /* Glassmorphism utility */
+    .glass-panel {
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+    }
+    .glass-nav {
+      background: rgba(245, 245, 247, 0.82);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+    .segmented-control {
+      background: rgba(238, 238, 242, 0.8);
+      padding: 3px;
+      border-radius: 12px;
+    }
+  </style>
 </head>
-<body>
+<body class="bg-apple-bg text-apple-text antialiased min-h-full flex flex-col font-sans selection:bg-apple-accent selection:text-white">
 
-    <!-- NAVBAR -->
-    <header class="navbar-wrapper">
-        <nav class="navbar">
-            <div class="nav-left">
-                <a href="#" class="brand-logo">
-                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
-                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-                    </svg>
-                    <span>NORTHSTAR <small>EdTech</small></span>
-                </a>
-            </div>
-            
-            <div class="nav-right">
-                <a href="https://northstartracker.vercel.app/" target="_blank" class="nav-link tracker-btn">
-                    <span>NORTHSTAR Tracker</span>
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
-                </a>
-                <button class="icon-btn" onclick="openAdminModal()" title="Admin Configuration">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-                </button>
-                <div id="authNavArea">
-                    <button class="btn btn-secondary" onclick="openAuthModal('signin')">Sign In</button>
-                    <button class="btn btn-primary" onclick="openAuthModal('signup')">Sign Up</button>
-                </div>
-            </div>
+  <!-- Header / Navigation -->
+  <header class="sticky top-0 z-40 glass-nav border-b border-apple-border/50 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        
+        <!-- Brand Logo & Title -->
+        <div class="flex items-center space-x-3 cursor-pointer" onclick="scrollToTop()">
+          <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-apple-accent via-sky-500 to-apple-aqua flex items-center justify-center text-white shadow-md shadow-apple-accent/20">
+            <i class="ph-bold ph-compass text-2xl"></i>
+          </div>
+          <div>
+            <span class="font-semibold text-lg tracking-tight text-apple-text block leading-none">NORTHSTAR</span>
+            <span class="text-[10px] font-medium tracking-widest text-apple-accent uppercase">EdTech GSEB & NCERT</span>
+          </div>
+        </div>
+
+        <!-- Navigation Links (Desktop) -->
+        <nav class="hidden md:flex items-center space-x-1">
+          <a href="#materials" class="px-3.5 py-2 rounded-xl text-sm font-medium text-apple-text hover:bg-black/5 transition">Study Materials</a>
+          <a href="https://northstartracker.vercel.app/" target="_blank" rel="noopener noreferrer" class="px-3.5 py-2 rounded-xl text-sm font-medium text-apple-text hover:bg-black/5 transition inline-flex items-center gap-1">
+            Tracker <i class="ph-bold ph-arrow-up-right text-xs opacity-70"></i>
+          </a>
+          <a href="#faq-section" class="px-3.5 py-2 rounded-xl text-sm font-medium text-apple-text hover:bg-black/5 transition">FAQs & Support</a>
+          <button onclick="openAdminModal()" class="px-3 py-2 rounded-xl text-xs font-semibold text-slate-500 hover:text-apple-accent hover:bg-black/5 transition flex items-center gap-1">
+            <i class="ph-bold ph-lock-key text-sm"></i> Admin Portal
+          </button>
         </nav>
-    </header>
 
-    <main class="container">
-        <!-- HERO BANNER -->
-        <section class="hero-section">
-            <span class="badge">NCERT & GSEB Excellence</span>
-            <h1>Premier Class 9 & 10 Study Library</h1>
-            <p>Access structured chapter notes for Mathematics, Science, and Social Science tailored for GSEB and NCERT students in Gujarati and English mediums.</p>
-
-            <div class="tracker-ad-card">
-                <div class="ad-content">
-                    <span class="ad-pill">Featured Platform</span>
-                    <h3>Track your daily revision with <strong>NORTHSTAR Tracker</strong></h3>
-                    <p>Set custom study goals, schedule GSEB paper practice, and monitor progress seamless across devices.</p>
-                </div>
-                <a href="https://northstartracker.vercel.app/" target="_blank" class="btn btn-primary">Open Tracker ↗</a>
-            </div>
-        </section>
-
-        <!-- SELECTION CONTROL TOOLBAR -->
-        <section class="control-panel">
-            <div class="segments-container">
-                <div class="segment-group">
-                    <label class="group-label">Grade Standard</label>
-                    <div class="segmented-control" id="classSegment">
-                        <button class="segment-btn active" onclick="setClass('10')">Class 10</button>
-                        <button class="segment-btn" onclick="setClass('9')">Class 9</button>
-                    </div>
-                </div>
-
-                <div class="segment-group">
-                    <label class="group-label">Study Medium</label>
-                    <div class="segmented-control" id="mediumSegment">
-                        <button class="segment-btn active" onclick="setMedium('gujarati')">ગુજરાતી માધ્યમ</button>
-                        <button class="segment-btn" onclick="setMedium('english')">English Medium</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- SUBJECT PILLS -->
-            <div class="subject-pills" id="subjectPills">
-                <button class="pill active" onclick="setSubject('all')">All Subjects</button>
-                <button class="pill" onclick="setSubject('maths')">Mathematics</button>
-                <button class="pill" onclick="setSubject('science')">Science</button>
-                <button class="pill" onclick="setSubject('ss')">Social Science</button>
-            </div>
-        </section>
-
-        <!-- CHAPTER MATERIAL GRID -->
-        <section class="materials-section">
-            <div class="section-header">
-                <h2 id="gridTitle">Class 10 — Gujarati Medium Notes</h2>
-                <div class="search-box">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                    <input type="text" id="searchInput" placeholder="Search chapter title..." oninput="renderChapters()">
-                </div>
-            </div>
-
-            <div class="chapter-grid" id="chapterGrid">
-                <!-- Injected via JavaScript -->
-            </div>
-        </section>
-
-        <!-- COMING SOON SECTION -->
-        <section class="coming-soon-banner">
-            <div class="cs-badge">Coming Soon !!</div>
-            <h2>Full Textbook Solutions & IMP Board Question Papers</h2>
-            <p>Our team is digitizing GSEB Board IMP Question Banks, Exemplar Solutions, and Blueprint Sample Papers for 2026-2027.</p>
-        </section>
-
-        <!-- FAQS & CHAT SECTION -->
-        <section class="support-section">
-            <div class="faq-container">
-                <h2>Frequently Asked Questions</h2>
-                <div class="faq-item">
-                    <button class="faq-question" onclick="toggleFaq(this)">
-                        <span>How do I open and download the chapter PDF notes?</span>
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
-                    </button>
-                    <div class="faq-answer">
-                        <p>Click the "Download Notes" button on any chapter card. You will be safely redirected through our verification step on Linkvertise to access the secure Google Drive PDF file.</p>
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <button class="faq-question" onclick="toggleFaq(this)">
-                        <span>Are these materials aligned with the latest GSEB / NCERT syllabus?</span>
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
-                    </button>
-                    <div class="faq-answer">
-                        <p>Yes! All content is crafted precisely according to the latest NCERT guidelines and GSEB Board examination curriculum for Class 9 and 10.</p>
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <button class="faq-question" onclick="toggleFaq(this)">
-                        <span>What is NORTHSTAR Tracker?</span>
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
-                    </button>
-                    <div class="faq-answer">
-                        <p>NORTHSTAR Tracker is our web dashboard tool for students to maintain daily study hours, monitor syllabus progress, and stay organized throughout the academic year.</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- CHAT & AI TEASER CARD -->
-            <div class="chat-card">
-                <div class="ai-header">
-                    <span class="ai-sparkle">✨ NORTHSTAR AI Assistant</span>
-                    <span class="cs-pill">Coming Soon !!</span>
-                </div>
-                <h3>Ask Doubts & Solve Concepts Instantly</h3>
-                <p>An intelligent AI tutor trained on GSEB & NCERT Science and Mathematics textbooks will be integrated right here.</p>
-
-                <div class="chat-mockup">
-                    <div class="chat-msg bot">Hello! Need quick help understanding Science Chapter 1?</div>
-                    <div class="chat-msg user">Can you explain chemical balancing?</div>
-                    <div class="chat-msg bot disabled">AI Smart Solver is currently in private beta testing.</div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- FOOTER -->
-    <footer class="footer">
-        <p>© 2026 NORTHSTAR EdTech. Designed strictly using Apple Human Interface Guidelines.</p>
-        <p><a href="https://northstartracker.vercel.app/" target="_blank">NORTHSTAR Tracker</a> • Class 9 & 10 GSEB / NCERT Hub</p>
-    </footer>
-
-    <!-- REDIRECTION LINKVERTISE MODAL -->
-    <div class="modal-backdrop" id="linkvertiseModal">
-        <div class="modal-card">
-            <div class="modal-icon">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-            </div>
-            <h3 id="modalChapterTitle">Opening Study Material</h3>
-            <p>You are being redirected to Linkvertise. Complete the quick verification steps on the destination page to unlock your file download.</p>
-            <div class="modal-actions">
-                <button class="btn btn-secondary" onclick="closeLinkvertiseModal()">Cancel</button>
-                <a href="#" id="modalContinueBtn" target="_blank" class="btn btn-primary" onclick="closeLinkvertiseModal()">Continue to File ↗</a>
-            </div>
+        <!-- Right Side User Menu / Auth Button -->
+        <div class="flex items-center space-x-3">
+          <div id="auth-header-container">
+            <!-- Dynamic Content loaded via JS -->
+          </div>
+          
+          <!-- Mobile Menu Button -->
+          <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="md:hidden p-2 rounded-xl text-apple-text hover:bg-black/5 focus:outline-none">
+            <i class="ph-bold ph-list text-2xl" id="menu-icon"></i>
+          </button>
         </div>
+
+      </div>
     </div>
 
-    <!-- AUTHENTICATION MODAL -->
-    <div class="modal-backdrop" id="authModal">
-        <div class="modal-card auth-card">
-            <button class="close-icon-btn" onclick="closeAuthModal()">✕</button>
+    <!-- Mobile Dropdown Navigation -->
+    <div id="mobile-menu" class="hidden md:hidden glass-panel border-b border-apple-border px-4 pt-2 pb-4 space-y-2">
+      <a href="#materials" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-xl text-base font-medium hover:bg-black/5">Study Materials</a>
+      <a href="https://northstartracker.vercel.app/" target="_blank" rel="noopener noreferrer" class="block px-3 py-2 rounded-xl text-base font-medium hover:bg-black/5">Tracker ↗</a>
+      <a href="#faq-section" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-xl text-base font-medium hover:bg-black/5">FAQs & Support</a>
+      <button onclick="toggleMobileMenu(); openAdminModal()" class="w-full text-left px-3 py-2 rounded-xl text-base font-medium text-slate-600 hover:bg-black/5">Admin Portal (Passcode Required)</button>
+    </div>
+  </header>
 
-            <!-- SIGN IN FORM -->
-            <div id="signinForm">
-                <h3>Welcome Back</h3>
-                <p class="auth-subtext">Sign in to sync your study bookmarks.</p>
-                <div class="input-group">
-                    <label>Email Address</label>
-                    <input type="email" id="signinEmail" placeholder="student@example.com">
-                </div>
-                <div class="input-group">
-                    <label>Password</label>
-                    <input type="password" id="signinPass" placeholder="••••••••">
-                </div>
-                <div class="auth-links">
-                    <a href="#" onclick="switchAuthTab('forgot')">Forgot Password?</a>
-                </div>
-                <button class="btn btn-primary btn-full" onclick="handleAuthSubmit('signin')">Sign In</button>
-                <p class="auth-switch">Don't have an account? <a href="#" onclick="switchAuthTab('signup')">Sign Up</a></p>
-            </div>
+  <!-- Main Content Container -->
+  <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
 
-            <!-- SIGN UP FORM -->
-            <div id="signupForm" class="hidden">
-                <h3>Create Account</h3>
-                <p class="auth-subtext">Join NORTHSTAR EdTech for full access.</p>
-                <div class="input-group">
-                    <label>Full Name</label>
-                    <input type="text" id="signupName" placeholder="Student Name">
-                </div>
-                <div class="input-group">
-                    <label>Email Address</label>
-                    <input type="email" id="signupEmail" placeholder="student@example.com">
-                </div>
-                <div class="input-group">
-                    <label>Password</label>
-                    <input type="password" id="signupPass" placeholder="••••••••">
-                </div>
-                <button class="btn btn-primary btn-full" onclick="handleAuthSubmit('signup')">Create Account</button>
-                <p class="auth-switch">Already have an account? <a href="#" onclick="switchAuthTab('signin')">Sign In</a></p>
-            </div>
+    <!-- Hero Announcement Banner -->
+    <section class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-sky-900 via-apple-accent to-sky-600 text-white p-8 md:p-12 shadow-xl">
+      <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-white/20 via-transparent to-transparent pointer-events-none"></div>
+      <div class="relative z-10 max-w-2xl space-y-4">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-white/20 backdrop-blur-md border border-white/30 text-white">
+          <i class="ph-fill ph-sparkle text-yellow-300"></i> New GSEB & NCERT Academic Session
+        </span>
+        <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight">
+          Excellence Guided by <span class="text-sky-200">NORTHSTAR</span>
+        </h1>
+        <p class="text-sky-100 text-sm sm:text-base leading-relaxed">
+          High-quality curated notes, syllabus roadmaps, and instant access to top-tier study materials for GSEB / NCERT Class 9 & Class 10 students.
+        </p>
+      </div>
+      
+      <!-- Decorative Graphic -->
+      <div class="hidden lg:block absolute -right-6 -bottom-10 opacity-20 pointer-events-none">
+        <i class="ph-bold ph-student text-[280px]"></i>
+      </div>
+    </section>
 
-            <!-- FORGOT PASSWORD FORM -->
-            <div id="forgotForm" class="hidden">
-                <h3>Reset Password</h3>
-                <p class="auth-subtext">Enter your registered email for an OTP reset code.</p>
-                <div class="input-group">
-                    <label>Registered Email</label>
-                    <input type="email" id="forgotEmail" placeholder="student@example.com">
-                </div>
-                <div id="otpSection" class="hidden">
-                    <div class="input-group">
-                        <label>Enter Demo OTP (Use 7777)</label>
-                        <input type="text" id="otpCode" placeholder="7777">
-                    </div>
-                    <div class="input-group">
-                        <label>New Password</label>
-                        <input type="password" id="newPass" placeholder="••••••••">
-                    </div>
-                </div>
-                <button class="btn btn-primary btn-full" id="forgotActionBtn" onclick="handleAuthSubmit('forgot')">Send Reset Code</button>
-                <p class="auth-switch"><a href="#" onclick="switchAuthTab('signin')">Back to Sign In</a></p>
-            </div>
+    <!-- Controls Section: Class, Medium & Subject Switchers -->
+    <section id="materials" class="glass-panel rounded-3xl p-6 sm:p-8 space-y-6 shadow-apple">
+      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-6 border-b border-apple-border/60">
+        
+        <!-- Title & Subtitle -->
+        <div>
+          <h2 class="text-2xl font-bold text-apple-text tracking-tight" id="portal-heading">Study Materials</h2>
+          <p class="text-xs sm:text-sm text-apple-secondary mt-1" id="portal-subheading">Select your Class, Medium, and Subject to access chapters.</p>
         </div>
+
+        <!-- Class & Medium Segment Controls -->
+        <div class="flex flex-col sm:flex-row gap-4 items-stretch sm:items-center">
+          
+          <!-- Class Selection Control -->
+          <div class="flex flex-col space-y-1">
+            <span class="text-[11px] font-semibold text-apple-secondary uppercase tracking-wider px-1">Class</span>
+            <div class="segmented-control flex items-center">
+              <button id="class-10-btn" onclick="selectClass('10')" class="flex-1 sm:flex-initial px-5 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all duration-200 shadow-sm bg-white text-apple-text">
+                Class 10
+              </button>
+              <button id="class-9-btn" onclick="selectClass('9')" class="flex-1 sm:flex-initial px-5 py-2 rounded-lg text-xs sm:text-sm font-medium transition-all duration-200 text-apple-secondary hover:text-apple-text">
+                Class 9
+              </button>
+            </div>
+          </div>
+
+          <!-- Medium Selection Control -->
+          <div class="flex flex-col space-y-1">
+            <span class="text-[11px] font-semibold text-apple-secondary uppercase tracking-wider px-1">Medium / માધ્યમ</span>
+            <div class="segmented-control flex items-center">
+              <button id="medium-en-btn" onclick="selectMedium('English')" class="flex-1 sm:flex-initial px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all duration-200 shadow-sm bg-white text-apple-text">
+                English Medium
+              </button>
+              <button id="medium-gu-btn" onclick="selectMedium('Gujarati')" class="flex-1 sm:flex-initial px-4 py-2 rounded-lg text-xs sm:text-sm font-medium transition-all duration-200 text-apple-secondary hover:text-apple-text">
+                ગુજરાતી માધ્યમ
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Subject Filter Pills (Maths, Science, SS only) -->
+      <div class="flex flex-wrap items-center gap-2 sm:gap-3" id="subject-pill-container">
+        <!-- Javascript renders subject pills here dynamically -->
+      </div>
+    </section>
+
+    <!-- Solutions & IMP Papers Banner -->
+    <div class="glass-panel rounded-2xl p-4 sm:p-5 border border-amber-200/50 bg-gradient-to-r from-amber-500/10 via-orange-500/5 to-amber-500/10 flex items-center justify-between gap-4 shadow-sm">
+      <div class="flex items-center space-x-3">
+        <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-700 flex items-center justify-center shrink-0">
+          <i class="ph-bold ph-sparkle text-xl"></i>
+        </div>
+        <div>
+          <h4 class="font-bold text-sm sm:text-base text-amber-900" id="banner-coming-soon-title">Solutions & IMP Papers</h4>
+          <p class="text-xs text-amber-800/80" id="banner-coming-soon-desc">Solutions & IMP Papers: Coming Soon !!</p>
+        </div>
+      </div>
+      <span class="shrink-0 px-3 py-1 rounded-full text-[11px] font-bold bg-amber-500 text-white shadow-sm">Upcoming</span>
     </div>
 
-    <!-- ADMIN MODAL (LOCKED WITH PASSCODE: RONALDO7) -->
-    <div class="modal-backdrop" id="adminModal">
-        <div class="modal-card admin-card">
-            <button class="close-icon-btn" onclick="closeAdminModal()">✕</button>
-            
-            <div id="adminLockScreen">
-                <div class="modal-icon">🔒</div>
-                <h3>Admin Portal Locked</h3>
-                <p>Enter the master security key to configure custom Linkvertise redirection links.</p>
-                <div class="input-group">
-                    <input type="password" id="adminPassInput" placeholder="Enter Passcode (RONALDO7)">
-                </div>
-                <button class="btn btn-primary btn-full" onclick="verifyAdminPasscode()">Unlock Portal</button>
-            </div>
+    <!-- Chapter Grid Display -->
+    <section>
+      <div class="flex items-center justify-between mb-6">
+        <h3 class="text-xl font-bold text-apple-text flex items-center gap-2" id="selected-subject-title">
+          <i class="ph-bold ph-book-open text-apple-accent"></i> Mathematics Chapters
+        </h3>
+        <span class="text-xs font-semibold px-3 py-1 rounded-full bg-apple-ice text-apple-accent border border-blue-100" id="chapter-count-badge">
+          0 Chapters
+        </span>
+      </div>
 
-            <div id="adminDashboard" class="hidden">
-                <div class="admin-header">
-                    <h3>Linkvertise Link Manager</h3>
-                    <button class="btn-text-danger" onclick="lockAdminPortal()">Lock & Exit</button>
-                </div>
-                <p class="auth-subtext">Set destination URLs for individual chapters.</p>
-                
-                <div class="admin-inputs">
-                    <div class="input-group">
-                        <label>Select Target Chapter</label>
-                        <select id="adminChapterSelect"></select>
-                    </div>
-                    <div class="input-group">
-                        <label>Linkvertise Target URL</label>
-                        <input type="url" id="adminUrlInput" placeholder="https://linkvertise.com/your-id/..." />
-                    </div>
-                    <button class="btn btn-primary btn-full" onclick="saveAdminLink()">Update Link</button>
-                </div>
+      <!-- Chapter Cards Container -->
+      <div id="chapter-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Rendered dynamically by JavaScript -->
+      </div>
+    </section>
 
-                <div class="admin-saved-list">
-                    <h4>Saved Custom Overrides</h4>
-                    <ul id="adminSavedList"></ul>
-                </div>
-            </div>
+    <!-- FAQ & Community Support Section -->
+    <section id="faq-section" class="grid grid-cols-1 lg:grid-cols-3 gap-8 pt-6">
+      
+      <!-- FAQs Accordion (2 cols) -->
+      <div class="lg:col-span-2 glass-panel rounded-3xl p-6 sm:p-8 space-y-6 shadow-apple">
+        <div>
+          <h3 class="text-2xl font-bold text-apple-text" id="faq-heading">Frequently Asked Questions</h3>
+          <p class="text-xs sm:text-sm text-apple-secondary mt-1" id="faq-subheading">Get quick answers regarding downloads, syllabus, and study materials.</p>
         </div>
-    </div>
 
-    <script src="script.js"></script>
+        <div class="space-y-3" id="faq-accordion">
+          <!-- JS dynamic FAQ rendering -->
+        </div>
+      </div>
+
+      <!-- Live Chat & Quick Support Widget (1 col) -->
+      <div class="glass-panel rounded-3xl p-6 sm:p-8 flex flex-col justify-between space-y-6 shadow-apple">
+        <div class="space-y-4">
+          <div class="flex items-center space-x-3">
+            <div class="w-10 h-10 rounded-2xl bg-apple-accent/10 text-apple-accent flex items-center justify-center">
+              <i class="ph-bold ph-chats text-2xl"></i>
+            </div>
+            <div>
+              <h4 class="font-bold text-lg text-apple-text">Student Support</h4>
+              <p class="text-xs text-apple-secondary">Ask questions or report link issues</p>
+            </div>
+          </div>
+
+          <!-- Chat Box Simulation -->
+          <div class="bg-black/5 rounded-2xl p-4 h-56 flex flex-col justify-between space-y-3">
+            <div id="chat-messages" class="overflow-y-auto space-y-2 text-xs pr-1">
+              <div class="bg-white p-2.5 rounded-xl text-apple-text shadow-sm max-w-[85%] border border-apple-border/40">
+                👋 Hello! Welcome to NORTHSTAR EdTech. Need help downloading your GSEB/NCERT notes?
+              </div>
+            </div>
+
+            <form onsubmit="handleChatSubmit(event)" class="flex items-center gap-2">
+              <input type="text" id="chat-input" placeholder="Type a message..." class="flex-1 bg-white px-3 py-2 rounded-xl text-xs text-apple-text focus:outline-none border border-apple-border focus:border-apple-accent shadow-sm" required />
+              <button type="submit" class="p-2 rounded-xl bg-apple-accent text-white hover:bg-apple-accentHover transition shadow-sm">
+                <i class="ph-bold ph-paper-plane-right text-sm"></i>
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <!-- AI Assistant Banner -->
+        <div class="p-4 rounded-2xl bg-gradient-to-br from-indigo-500/10 to-purple-500/10 border border-indigo-200/50 flex items-center space-x-3">
+          <div class="w-9 h-9 rounded-xl bg-indigo-600 text-white flex items-center justify-center shrink-0 shadow-md">
+            <i class="ph-bold ph-robot text-lg"></i>
+          </div>
+          <div>
+            <span class="text-xs font-bold text-indigo-900 block">AI Assistant - Coming Soon !!</span>
+            <span class="text-[11px] text-indigo-700/80">Smart AI tutor for instant doubts solving.</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-white border-t border-apple-border mt-16 py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+        <div class="flex items-center space-x-3">
+          <div class="w-8 h-8 rounded-xl bg-apple-accent flex items-center justify-center text-white font-bold">
+            <i class="ph-bold ph-compass"></i>
+          </div>
+          <span class="font-semibold text-base tracking-tight text-apple-text">NORTHSTAR EdTech</span>
+        </div>
+
+        <div class="flex flex-wrap justify-center gap-6 text-xs text-apple-secondary font-medium">
+          <a href="#materials" class="hover:text-apple-accent transition">Study Notes</a>
+          <a href="https://northstartracker.vercel.app/" target="_blank" rel="noopener noreferrer" class="hover:text-apple-accent transition">Northstar Tracker</a>
+          <a href="#faq-section" class="hover:text-apple-accent transition">FAQs</a>
+          <button onclick="openAdminModal()" class="hover:text-apple-accent transition">Admin Login</button>
+        </div>
+
+        <p class="text-xs text-apple-secondary">© 2026 NORTHSTAR EdTech. GSEB & NCERT Educational Portal.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- MODALS CONTAINER -->
+
+  <!-- 1. Download Linkvertise Modal -->
+  <div id="download-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/40 backdrop-blur-sm transition-opacity">
+    <div class="glass-panel w-full max-w-md rounded-3xl p-6 sm:p-8 space-y-6 shadow-2xl relative border border-white/80 animate-in fade-in zoom-in duration-200">
+      <button onclick="closeDownloadModal()" class="absolute top-5 right-5 p-2 rounded-full text-apple-secondary hover:bg-black/5 transition">
+        <i class="ph-bold ph-x text-xl"></i>
+      </button>
+
+      <div class="text-center space-y-3">
+        <div class="w-16 h-16 rounded-3xl bg-apple-ice text-apple-accent flex items-center justify-center mx-auto text-3xl shadow-md border border-blue-100">
+          <i class="ph-bold ph-file-arrow-down"></i>
+        </div>
+        <h3 class="text-xl font-bold text-apple-text" id="modal-download-title">Download Note File</h3>
+        <p class="text-xs text-apple-secondary px-2" id="modal-download-desc">
+          You are being redirected to our high-speed link server (Linkvertise) to fetch your requested GSEB study material.
+        </p>
+      </div>
+
+      <div class="bg-sky-50/70 border border-sky-100 rounded-2xl p-4 space-y-2 text-xs text-sky-900">
+        <div class="font-semibold flex items-center gap-1.5 text-apple-accent">
+          <i class="ph-bold ph-info"></i> How to access notes:
+        </div>
+        <ol class="list-decimal list-inside space-y-1 text-[11px] opacity-90">
+          <li>Click <strong>Continue to Download</strong> below.</li>
+          <li>Complete the free steps on Linkvertise page.</li>
+          <li>Get instant high-speed PDF download link.</li>
+        </ol>
+      </div>
+
+      <div class="space-y-3">
+        <a id="modal-continue-btn" href="#" target="_blank" rel="noopener noreferrer" onclick="closeDownloadModal()" class="w-full py-3.5 px-4 rounded-2xl bg-apple-accent text-white font-semibold text-center hover:bg-apple-accentHover transition shadow-lg shadow-apple-accent/25 flex items-center justify-center gap-2 text-sm">
+          <span>Continue to Download</span>
+          <i class="ph-bold ph-arrow-right"></i>
+        </a>
+        <button onclick="closeDownloadModal()" class="w-full py-2.5 px-4 rounded-2xl text-xs text-apple-secondary font-medium hover:bg-black/5 transition">
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Authentication Modal (Login / Sign Up / Forgot Password) -->
+  <div id="auth-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/40 backdrop-blur-sm transition-opacity">
+    <div class="glass-panel w-full max-w-md rounded-3xl p-6 sm:p-8 space-y-6 shadow-2xl relative border border-white/80">
+      <button onclick="closeAuthModal()" class="absolute top-5 right-5 p-2 rounded-full text-apple-secondary hover:bg-black/5 transition">
+        <i class="ph-bold ph-x text-xl"></i>
+      </button>
+
+      <!-- View 1: Sign In -->
+      <div id="auth-signin-view" class="space-y-5">
+        <div class="text-center space-y-1">
+          <h3 class="text-2xl font-bold text-apple-text">Welcome Back</h3>
+          <p class="text-xs text-apple-secondary">Sign in to your NORTHSTAR student account</p>
+        </div>
+
+        <form onsubmit="handleLoginSubmit(event)" class="space-y-4">
+          <div>
+            <label class="block text-xs font-semibold text-apple-secondary mb-1">Email Address</label>
+            <input type="email" id="login-email" required class="w-full px-4 py-3 rounded-2xl bg-white/80 border border-apple-border focus:border-apple-accent focus:outline-none text-sm text-apple-text shadow-sm" placeholder="student@northstar.edu" />
+          </div>
+          <div>
+            <div class="flex justify-between items-center mb-1">
+              <label class="text-xs font-semibold text-apple-secondary">Password</label>
+              <button type="button" onclick="switchAuthView('forgot')" class="text-[11px] font-semibold text-apple-accent hover:underline">Forgot Password?</button>
+            </div>
+            <input type="password" id="login-pass" required class="w-full px-4 py-3 rounded-2xl bg-white/80 border border-apple-border focus:border-apple-accent focus:outline-none text-sm text-apple-text shadow-sm" placeholder="••••••••" />
+          </div>
+
+          <button type="submit" class="w-full py-3.5 px-4 rounded-2xl bg-apple-accent text-white font-semibold text-sm hover:bg-apple-accentHover transition shadow-md shadow-apple-accent/20">
+            Sign In
+          </button>
+        </form>
+
+        <div class="text-center pt-2 text-xs text-apple-secondary">
+          Don't have an account? <button onclick="switchAuthView('signup')" class="font-bold text-apple-accent hover:underline">Create Account</button>
+        </div>
+      </div>
+
+      <!-- View 2: Sign Up -->
+      <div id="auth-signup-view" class="hidden space-y-5">
+        <div class="text-center space-y-1">
+          <h3 class="text-2xl font-bold text-apple-text">Create Account</h3>
+          <p class="text-xs text-apple-secondary">Join NORTHSTAR EdTech learning community</p>
+        </div>
+
+        <form onsubmit="handleSignupSubmit(event)" class="space-y-3">
+          <div>
+            <label class="block text-xs font-semibold text-apple-secondary mb-1">Full Name</label>
+            <input type="text" id="signup-name" required class="w-full px-4 py-2.5 rounded-2xl bg-white/80 border border-apple-border focus:border-apple-accent focus:outline-none text-sm text-apple-text shadow-sm" placeholder="Aarav Patel" />
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-apple-secondary mb-1">Email Address</label>
+            <input type="email" id="signup-email" required class="w-full px-4 py-2.5 rounded-2xl bg-white/80 border border-apple-border focus:border-apple-accent focus:outline-none text-sm text-apple-text shadow-sm" placeholder="student@northstar.edu" />
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-apple-secondary mb-1">Password</label>
+            <input type="password" id="signup-pass" required minlength="6" class="w-full px-4 py-2.5 rounded-2xl bg-white/80 border border-apple-border focus:border-apple-accent focus:outline-none text-sm text-apple-text shadow-sm" placeholder="••••••••" />
+          </div>
+
+          <button type="submit" class="w-full py-3 px-4 rounded-2xl bg-apple-accent text-white font-semibold text-sm hover:bg-apple-accentHover transition shadow-md shadow-apple-accent/20 mt-2">
+            Create Free Account
+          </button>
+        </form>
+
+        <div class="text-center pt-2 text-xs text-apple-secondary">
+          Already have an account? <button onclick="switchAuthView('signin')" class="font-bold text-apple-accent hover:underline">Sign In</button>
+        </div>
+      </div>
+
+      <!-- View 3: Forgot Password (OTP Simulation) -->
+      <div id="auth-forgot-view" class="hidden space-y-5">
+        <div class="text-center space-y-1">
+          <h3 class="text-2xl font-bold text-apple-text">Reset Password</h3>
+          <p class="text-xs text-apple-secondary">Enter your email for security OTP verification</p>
+        </div>
+
+        <div id="otp-step-1" class="space-y-4">
+          <div>
+            <label class="block text-xs font-semibold text-apple-secondary mb-1">Email Address</label>
+            <input type="email" id="forgot-email" required class="w-full px-4 py-3 rounded-2xl bg-white/80 border border-apple-border focus:border-apple-accent focus:outline-none text-sm text-apple-text shadow-sm" placeholder="student@northstar.edu" />
+          </div>
+          <button onclick="sendOTP()" class="w-full py-3.5 px-4 rounded-2xl bg-apple-accent text-white font-semibold text-sm hover:bg-apple-accentHover transition shadow-md">
+            Send Reset OTP
+          </button>
+        </div>
+
+        <div id="otp-step-2" class="hidden space-y-4">
+          <div class="bg-green-50 border border-green-200 text-green-800 p-3 rounded-xl text-xs">
+            ✓ OTP sent! (Demo OTP code: <strong>7777</strong>)
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-apple-secondary mb-1">Enter 4-Digit OTP</label>
+            <input type="text" id="otp-input" maxlength="4" class="w-full text-center tracking-widest text-lg font-bold px-4 py-2.5 rounded-2xl bg-white/80 border border-apple-border focus:border-apple-accent focus:outline-none text-apple-text shadow-sm" placeholder="0000" />
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-apple-secondary mb-1">New Password</label>
+            <input type="password" id="new-password" class="w-full px-4 py-2.5 rounded-2xl bg-white/80 border border-apple-border focus:border-apple-accent focus:outline-none text-sm text-apple-text shadow-sm" placeholder="New Password" />
+          </div>
+          <button onclick="verifyOTPAndReset()" class="w-full py-3.5 px-4 rounded-2xl bg-apple-accent text-white font-semibold text-sm hover:bg-apple-accentHover transition shadow-md">
+            Verify & Update Password
+          </button>
+        </div>
+
+        <div class="text-center pt-2">
+          <button onclick="switchAuthView('signin')" class="text-xs font-semibold text-apple-secondary hover:text-apple-text">Back to Sign In</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 3. Admin Portal Locking Modal (Passcode: RONALDO7) -->
+  <div id="admin-auth-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/40 backdrop-blur-sm transition-opacity">
+    <div class="glass-panel w-full max-w-sm rounded-3xl p-6 sm:p-8 space-y-6 shadow-2xl relative border border-white/80">
+      <button onclick="closeAdminAuthModal()" class="absolute top-5 right-5 p-2 rounded-full text-apple-secondary hover:bg-black/5 transition">
+        <i class="ph-bold ph-x text-xl"></i>
+      </button>
+
+      <div class="text-center space-y-2">
+        <div class="w-14 h-14 rounded-2xl bg-slate-900 text-white flex items-center justify-center mx-auto text-2xl shadow-lg">
+          <i class="ph-bold ph-shield-check"></i>
+        </div>
+        <h3 class="text-xl font-bold text-apple-text">Admin Access</h3>
+        <p class="text-xs text-apple-secondary">Enter administrator password to edit links</p>
+      </div>
+
+      <form onsubmit="handleAdminAuth(event)" class="space-y-4">
+        <div>
+          <input type="password" id="admin-password" required placeholder="Enter passcode" class="w-full text-center px-4 py-3 rounded-2xl bg-white/80 border border-apple-border focus:border-apple-accent focus:outline-none text-sm text-apple-text font-mono shadow-sm" />
+          <p id="admin-error-msg" class="text-xs text-red-500 mt-1.5 text-center hidden font-semibold">Incorrect password!</p>
+        </div>
+
+        <button type="submit" class="w-full py-3 px-4 rounded-2xl bg-slate-900 text-white font-semibold text-sm hover:bg-black transition shadow-md">
+          Unlock Portal
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- 4. Admin Management Dashboard Modal -->
+  <div id="admin-dashboard-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/40 backdrop-blur-sm transition-opacity overflow-y-auto">
+    <div class="glass-panel w-full max-w-3xl rounded-3xl p-6 sm:p-8 space-y-6 shadow-2xl relative border border-white/80 my-8">
+      <div class="flex items-center justify-between pb-4 border-b border-apple-border">
+        <div class="flex items-center space-x-3">
+          <div class="w-10 h-10 rounded-2xl bg-emerald-500 text-white flex items-center justify-center text-xl shadow-md">
+            <i class="ph-bold ph-gear"></i>
+          </div>
+          <div>
+            <h3 class="text-xl font-bold text-apple-text">Linkvertise URL Override Panel</h3>
+            <p class="text-xs text-apple-secondary">Modify chapter download links dynamically</p>
+          </div>
+        </div>
+        <button onclick="closeAdminDashboardModal()" class="p-2 rounded-full text-apple-secondary hover:bg-black/5 transition">
+          <i class="ph-bold ph-x text-xl"></i>
+        </button>
+      </div>
+
+      <!-- Controls to filter admin editor list -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        <div>
+          <label class="text-[11px] font-semibold text-apple-secondary block mb-1">Class</label>
+          <select id="admin-filter-class" onchange="renderAdminLinkList()" class="w-full bg-white px-3 py-2 rounded-xl text-xs border border-apple-border text-apple-text font-semibold">
+            <option value="10">Class 10</option>
+            <option value="9">Class 9</option>
+          </select>
+        </div>
+        <div>
+          <label class="text-[11px] font-semibold text-apple-secondary block mb-1">Medium</label>
+          <select id="admin-filter-medium" onchange="renderAdminLinkList()" class="w-full bg-white px-3 py-2 rounded-xl text-xs border border-apple-border text-apple-text font-semibold">
+            <option value="English">English Medium</option>
+            <option value="Gujarati">Gujarati Medium</option>
+          </select>
+        </div>
+        <div>
+          <label class="text-[11px] font-semibold text-apple-secondary block mb-1">Subject</label>
+          <select id="admin-filter-subject" onchange="renderAdminLinkList()" class="w-full bg-white px-3 py-2 rounded-xl text-xs border border-apple-border text-apple-text font-semibold">
+            <option value="Mathematics">Mathematics</option>
+            <option value="Science">Science</option>
+            <option value="Social Science">Social Science</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Dynamic Editable Links List -->
+      <div id="admin-links-editor-list" class="space-y-3 max-h-96 overflow-y-auto pr-1">
+        <!-- Loaded dynamically via JS -->
+      </div>
+
+      <div class="pt-4 border-t border-apple-border flex justify-between items-center">
+        <button onclick="resetAllAdminLinks()" class="text-xs text-red-600 font-medium hover:underline">
+          Reset All Links to Default
+        </button>
+        <button onclick="closeAdminDashboardModal()" class="py-2.5 px-6 rounded-2xl bg-apple-accent text-white text-xs font-semibold hover:bg-apple-accentHover transition shadow-sm">
+          Save & Close
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript Application Engine -->
+  <script>
+    /* ==========================================================================
+       DATA STRUCTURES & CURATED SYLLABUS
+       ========================================================================== */
+    
+    // Complete chapter list for Class 10 & 9 in Maths, Science, Social Science
+    // Strictly separated by language medium.
+    const CURRICULUM_DATA = {
+      "10": {
+        "English": {
+          "Mathematics": [
+            { ch: 1, title: "Real Numbers", defaultUrl: "https://linkvertise.com/sample/class10-maths-ch1" },
+            { ch: 2, title: "Polynomials", defaultUrl: "https://linkvertise.com/sample/class10-maths-ch2" },
+            { ch: 3, title: "Pair of Linear Equations in Two Variables", defaultUrl: "https://linkvertise.com/sample/class10-maths-ch3" },
+            { ch: 4, title: "Quadratic Equations", defaultUrl: "https://linkvertise.com/sample/class10-maths-ch4" },
+            { ch: 5, title: "Arithmetic Progressions", defaultUrl: "https://linkvertise.com/sample/class10-maths-ch5" },
+            { ch: 6, title: "Triangles", defaultUrl: "https://linkvertise.com/sample/class10-maths-ch6" },
+            { ch: 7, title: "Coordinate Geometry", defaultUrl: "https://linkvertise.com/sample/class10-maths-ch7" },
+            { ch: 8, title: "Introduction to Trigonometry", defaultUrl: "https://linkvertise.com/sample/class10-maths-ch8" },
+            { ch: 9, title: "Some Applications of Trigonometry", defaultUrl: "https://linkvertise.com/sample/class10-maths-ch9" },
+            { ch: 10, title: "Circles", defaultUrl: "https://linkvertise.com/sample/class10-maths-ch10" },
+            { ch: 11, title: "Areas Related to Circles", defaultUrl: "https://linkvertise.com/sample/class10-maths-ch11" },
+            { ch: 12, title: "Surface Areas and Volumes", defaultUrl: "https://linkvertise.com/sample/class10-maths-ch12" },
+            { ch: 13, title: "Statistics", defaultUrl: "https://linkvertise.com/sample/class10-maths-ch13" },
+            { ch: 14, title: "Probability", defaultUrl: "https://linkvertise.com/sample/class10-maths-ch14" }
+          ],
+          "Science": [
+            { ch: 1, title: "Chemical Reactions and Equations", defaultUrl: "https://linkvertise.com/sample/class10-sci-ch1" },
+            { ch: 2, title: "Acids, Bases and Salts", defaultUrl: "https://linkvertise.com/sample/class10-sci-ch2" },
+            { ch: 3, title: "Metals and Non-metals", defaultUrl: "https://linkvertise.com/sample/class10-sci-ch3" },
+            { ch: 4, title: "Carbon and its Compounds", defaultUrl: "https://linkvertise.com/sample/class10-sci-ch4" },
+            { ch: 5, title: "Life Processes", defaultUrl: "https://linkvertise.com/sample/class10-sci-ch5" },
+            { ch: 6, title: "Control and Coordination", defaultUrl: "https://linkvertise.com/sample/class10-sci-ch6" },
+            { ch: 7, title: "How do Organisms Reproduce?", defaultUrl: "https://linkvertise.com/sample/class10-sci-ch7" },
+            { ch: 8, title: "Heredity and Evolution", defaultUrl: "https://linkvertise.com/sample/class10-sci-ch8" },
+            { ch: 9, title: "Light - Reflection and Refraction", defaultUrl: "https://linkvertise.com/sample/class10-sci-ch9" },
+            { ch: 10, title: "The Human Eye and the Colorful World", defaultUrl: "https://linkvertise.com/sample/class10-sci-ch10" },
+            { ch: 11, title: "Electricity", defaultUrl: "https://linkvertise.com/sample/class10-sci-ch11" },
+            { ch: 12, title: "Magnetic Effects of Electric Current", defaultUrl: "https://linkvertise.com/sample/class10-sci-ch12" },
+            { ch: 13, title: "Our Environment", defaultUrl: "https://linkvertise.com/sample/class10-sci-ch13" }
+          ],
+          "Social Science": [
+            { ch: 1, title: "Heritage of India", defaultUrl: "https://linkvertise.com/sample/class10-ss-ch1" },
+            { ch: 2, title: "Cultural Heritage of India: Traditional Art and Fine Arts", defaultUrl: "https://linkvertise.com/sample/class10-ss-ch2" },
+            { ch: 3, title: "Cultural Heritage of India: Sculpture and Architecture", defaultUrl: "https://linkvertise.com/sample/class10-ss-ch3" },
+            { ch: 4, title: "Literary Heritage of India", defaultUrl: "https://linkvertise.com/sample/class10-ss-ch4" },
+            { ch: 5, title: "India's Heritage of Science and Technology", defaultUrl: "https://linkvertise.com/sample/class10-ss-ch5" },
+            { ch: 6, title: "Places of Indian Cultural Heritage", defaultUrl: "https://linkvertise.com/sample/class10-ss-ch6" },
+            { ch: 7, title: "Preservation of Our Heritage", defaultUrl: "https://linkvertise.com/sample/class10-ss-ch7" },
+            { ch: 8, title: "Natural Resources", defaultUrl: "https://linkvertise.com/sample/class10-ss-ch8" },
+            { ch: 9, title: "Forests and Wildlife Resources", defaultUrl: "https://linkvertise.com/sample/class10-ss-ch9" },
+            { ch: 10, title: "Agriculture", defaultUrl: "https://linkvertise.com/sample/class10-ss-ch10" }
+          ]
+        },
+        "Gujarati": {
+          "Mathematics": [
+            { ch: 1, title: "વાસ્તવિક સંખ્યાઓ", defaultUrl: "https://linkvertise.com/sample/class10-gu-maths-ch1" },
+            { ch: 2, title: "બહપદીઓ", defaultUrl: "https://linkvertise.com/sample/class10-gu-maths-ch2" },
+            { ch: 3, title: "દ્રિચલ સુરેખ સમીકરણ યુગ્મ", defaultUrl: "https://linkvertise.com/sample/class10-gu-maths-ch3" },
+            { ch: 4, title: "દ્રિઘાત સમીકરણ", defaultUrl: "https://linkvertise.com/sample/class10-gu-maths-ch4" },
+            { ch: 5, title: "સમાંતર શ્રેણી", defaultUrl: "https://linkvertise.com/sample/class10-gu-maths-ch5" },
+            { ch: 6, title: "ત્રિકોણ", defaultUrl: "https://linkvertise.com/sample/class10-gu-maths-ch6" },
+            { ch: 7, title: "યામ ભૂમિતિ", defaultUrl: "https://linkvertise.com/sample/class10-gu-maths-ch7" },
+            { ch: 8, title: "ત્રિકોણમિતિનો પરિચય", defaultUrl: "https://linkvertise.com/sample/class10-gu-maths-ch8" },
+            { ch: 9, title: "ત્રિકોણમિતિના ઉપયોગો", defaultUrl: "https://linkvertise.com/sample/class10-gu-maths-ch9" },
+            { ch: 10, title: "વર્તુળ", defaultUrl: "https://linkvertise.com/sample/class10-gu-maths-ch10" },
+            { ch: 11, title: "વર્તુળ સંબંધિત ક્ષેત્રફળ", defaultUrl: "https://linkvertise.com/sample/class10-gu-maths-ch11" },
+            { ch: 12, title: "પૃષ્ઠફળ અને ઘનફળ", defaultUrl: "https://linkvertise.com/sample/class10-gu-maths-ch12" },
+            { ch: 13, title: "આંકડાશાસ્ત્ર", defaultUrl: "https://linkvertise.com/sample/class10-gu-maths-ch13" },
+            { ch: 14, title: "સંભાવના", defaultUrl: "https://linkvertise.com/sample/class10-gu-maths-ch14" }
+          ],
+          "Science": [
+            { ch: 1, title: "રાસાયણિક પ્રક્રિયાઓ અને સમીકરણો", defaultUrl: "https://linkvertise.com/sample/class10-gu-sci-ch1" },
+            { ch: 2, title: "એસિડ, બેઇઝ અને ક્ષાર", defaultUrl: "https://linkvertise.com/sample/class10-gu-sci-ch2" },
+            { ch: 3, title: "ધાતુઓ અને અધાતુઓ", defaultUrl: "https://linkvertise.com/sample/class10-gu-sci-ch3" },
+            { ch: 4, title: "કાર્બન અને તેના સંયોજનો", defaultUrl: "https://linkvertise.com/sample/class10-gu-sci-ch4" },
+            { ch: 5, title: "જૈવિક ક્રિયાઓ", defaultUrl: "https://linkvertise.com/sample/class10-gu-sci-ch5" },
+            { ch: 6, title: "નિયંત્રણ અને સંકલન", defaultUrl: "https://linkvertise.com/sample/class10-gu-sci-ch6" },
+            { ch: 7, title: "સજીવો કેવી રીતે પ્રજનન કરે છે?", defaultUrl: "https://linkvertise.com/sample/class10-gu-sci-ch7" },
+            { ch: 8, title: "આનુવંશિકતા", defaultUrl: "https://linkvertise.com/sample/class10-gu-sci-ch8" },
+            { ch: 9, title: "પ્રકાશ - પરાવર્તન અને વક્રીભવન", defaultUrl: "https://linkvertise.com/sample/class10-gu-sci-ch9" },
+            { ch: 10, title: "માનવ આંખ અને રંગબેરંગી દુનિયા", defaultUrl: "https://linkvertise.com/sample/class10-gu-sci-ch10" },
+            { ch: 11, title: "વિદ્યુત", defaultUrl: "https://linkvertise.com/sample/class10-gu-sci-ch11" },
+            { ch: 12, title: "વિદ્યુત પ્રવાહની ચુંબકીય અસરો", defaultUrl: "https://linkvertise.com/sample/class10-gu-sci-ch12" },
+            { ch: 13, title: "આપણું પર્યાવરણ", defaultUrl: "https://linkvertise.com/sample/class10-gu-sci-ch13" }
+          ],
+          "Social Science": [
+            { ch: 1, title: "ભારતનો વારસો", defaultUrl: "https://linkvertise.com/sample/class10-gu-ss-ch1" },
+            { ch: 2, title: "ભારતનો સાંસ્કૃતિક વારસો: પરંપરાઓ અને લલિતકલા", defaultUrl: "https://linkvertise.com/sample/class10-gu-ss-ch2" },
+            { ch: 3, title: "ભારતનો સાંસ્કૃતિક વારસો: શિલ્પ અને સ્થાપત્ય", defaultUrl: "https://linkvertise.com/sample/class10-gu-ss-ch3" },
+            { ch: 4, title: "ભારતનો સાહિત્યિક વારસો", defaultUrl: "https://linkvertise.com/sample/class10-gu-ss-ch4" },
+            { ch: 5, title: "ભારતનો વિજ્ઞાન અને ટેકનોલોજીનો વારસો", defaultUrl: "https://linkvertise.com/sample/class10-gu-ss-ch5" },
+            { ch: 6, title: "ભારતના સાંસ્કૃતિક વારસાના સ્થળો", defaultUrl: "https://linkvertise.com/sample/class10-gu-ss-ch6" },
+            { ch: 7, title: "આપણા વારસાનું જતન", defaultUrl: "https://linkvertise.com/sample/class10-gu-ss-ch7" },
+            { ch: 8, title: "કુદરતી સંસાધનો", defaultUrl: "https://linkvertise.com/sample/class10-gu-ss-ch8" },
+            { ch: 9, title: "વન અને વન્યજીવ સંસાધન", defaultUrl: "https://linkvertise.com/sample/class10-gu-ss-ch9" },
+            { ch: 10, title: "ભારત: કૃષિ", defaultUrl: "https://linkvertise.com/sample/class10-gu-ss-ch10" }
+          ]
+        }
+      },
+      "9": {
+        "English": {
+          "Mathematics": [
+            { ch: 1, title: "Number Systems", defaultUrl: "https://linkvertise.com/sample/class9-maths-ch1" },
+            { ch: 2, title: "Polynomials", defaultUrl: "https://linkvertise.com/sample/class9-maths-ch2" },
+            { ch: 3, title: "Coordinate Geometry", defaultUrl: "https://linkvertise.com/sample/class9-maths-ch3" },
+            { ch: 4, title: "Linear Equations in Two Variables", defaultUrl: "https://linkvertise.com/sample/class9-maths-ch4" },
+            { ch: 5, title: "Introduction to Euclid's Geometry", defaultUrl: "https://linkvertise.com/sample/class9-maths-ch5" },
+            { ch: 6, title: "Lines and Angles", defaultUrl: "https://linkvertise.com/sample/class9-maths-ch6" },
+            { ch: 7, title: "Triangles", defaultUrl: "https://linkvertise.com/sample/class9-maths-ch7" },
+            { ch: 8, title: "Quadrilaterals", defaultUrl: "https://linkvertise.com/sample/class9-maths-ch8" },
+            { ch: 9, title: "Circles", defaultUrl: "https://linkvertise.com/sample/class9-maths-ch9" },
+            { ch: 10, title: "Heron's Formula", defaultUrl: "https://linkvertise.com/sample/class9-maths-ch10" },
+            { ch: 11, title: "Surface Areas and Volumes", defaultUrl: "https://linkvertise.com/sample/class9-maths-ch11" },
+            { ch: 12, title: "Statistics", defaultUrl: "https://linkvertise.com/sample/class9-maths-ch12" }
+          ],
+          "Science": [
+            { ch: 1, title: "Matter in Our Surroundings", defaultUrl: "https://linkvertise.com/sample/class9-sci-ch1" },
+            { ch: 2, title: "Is Matter Around Us Pure?", defaultUrl: "https://linkvertise.com/sample/class9-sci-ch2" },
+            { ch: 3, title: "Atoms and Molecules", defaultUrl: "https://linkvertise.com/sample/class9-sci-ch3" },
+            { ch: 4, title: "Structure of the Atom", defaultUrl: "https://linkvertise.com/sample/class9-sci-ch4" },
+            { ch: 5, title: "The Fundamental Unit of Life", defaultUrl: "https://linkvertise.com/sample/class9-sci-ch5" },
+            { ch: 6, title: "Tissues", defaultUrl: "https://linkvertise.com/sample/class9-sci-ch6" },
+            { ch: 7, title: "Motion", defaultUrl: "https://linkvertise.com/sample/class9-sci-ch7" },
+            { ch: 8, title: "Force and Laws of Motion", defaultUrl: "https://linkvertise.com/sample/class9-sci-ch8" },
+            { ch: 9, title: "Gravitation", defaultUrl: "https://linkvertise.com/sample/class9-sci-ch9" },
+            { ch: 10, title: "Work and Energy", defaultUrl: "https://linkvertise.com/sample/class9-sci-ch10" },
+            { ch: 11, title: "Sound", defaultUrl: "https://linkvertise.com/sample/class9-sci-ch11" },
+            { ch: 12, title: "Improvement in Food Resources", defaultUrl: "https://linkvertise.com/sample/class9-sci-ch12" }
+          ],
+          "Social Science": [
+            { ch: 1, title: "The French Revolution", defaultUrl: "https://linkvertise.com/sample/class9-ss-ch1" },
+            { ch: 2, title: "Socialism in Europe and the Russian Revolution", defaultUrl: "https://linkvertise.com/sample/class9-ss-ch2" },
+            { ch: 3, title: "Nazism and the Rise of Hitler", defaultUrl: "https://linkvertise.com/sample/class9-ss-ch3" },
+            { ch: 4, title: "India - Size and Location", defaultUrl: "https://linkvertise.com/sample/class9-ss-ch4" },
+            { ch: 5, title: "Physical Features of India", defaultUrl: "https://linkvertise.com/sample/class9-ss-ch5" },
+            { ch: 6, title: "Drainage System", defaultUrl: "https://linkvertise.com/sample/class9-ss-ch6" },
+            { ch: 7, title: "What is Democracy? Why Democracy?", defaultUrl: "https://linkvertise.com/sample/class9-ss-ch7" }
+          ]
+        },
+        "Gujarati": {
+          "Mathematics": [
+            { ch: 1, title: "સંખ્યા પદ્ધતિ", defaultUrl: "https://linkvertise.com/sample/class9-gu-maths-ch1" },
+            { ch: 2, title: "બહુપદીઓ", defaultUrl: "https://linkvertise.com/sample/class9-gu-maths-ch2" },
+            { ch: 3, title: "યામ ભૂમિતિ", defaultUrl: "https://linkvertise.com/sample/class9-gu-maths-ch3" },
+            { ch: 4, title: "દ્વિચલ સુરેખ સમીકરણો", defaultUrl: "https://linkvertise.com/sample/class9-gu-maths-ch4" },
+            { ch: 5, title: "યુક્લિડની ભૂમિતિનો પરિચય", defaultUrl: "https://linkvertise.com/sample/class9-gu-maths-ch5" },
+            { ch: 6, title: "રેખાઓ અને ખૂણાઓ", defaultUrl: "https://linkvertise.com/sample/class9-gu-maths-ch6" },
+            { ch: 7, title: "ત્રિકોણ", defaultUrl: "https://linkvertise.com/sample/class9-gu-maths-ch7" },
+            { ch: 8, title: "ચતુષ્કોણ", defaultUrl: "https://linkvertise.com/sample/class9-gu-maths-ch8" },
+            { ch: 9, title: "વર્તુળ", defaultUrl: "https://linkvertise.com/sample/class9-gu-maths-ch9" },
+            { ch: 10, title: "હેરોનનું સૂત્ર", defaultUrl: "https://linkvertise.com/sample/class9-gu-maths-ch10" },
+            { ch: 11, title: "પૃષ્ઠફળ અને ઘનફળ", defaultUrl: "https://linkvertise.com/sample/class9-gu-maths-ch11" },
+            { ch: 12, title: "આંકડાશાસ્ત્ર", defaultUrl: "https://linkvertise.com/sample/class9-gu-maths-ch12" }
+          ],
+          "Science": [
+            { ch: 1, title: "આપણી આસપાસમાં દ્રવ્ય", defaultUrl: "https://linkvertise.com/sample/class9-gu-sci-ch1" },
+            { ch: 2, title: "શું આપણી આસપાસના દ્રવ્યો શુદ્ધ છે?", defaultUrl: "https://linkvertise.com/sample/class9-gu-sci-ch2" },
+            { ch: 3, title: "પરમાણુઓ અને અણુઓ", defaultUrl: "https://linkvertise.com/sample/class9-gu-sci-ch3" },
+            { ch: 4, title: "પરમાણુનું બંધારણ", defaultUrl: "https://linkvertise.com/sample/class9-gu-sci-ch4" },
+            { ch: 5, title: "સજીવનો પાયાનો એકમ", defaultUrl: "https://linkvertise.com/sample/class9-gu-sci-ch5" },
+            { ch: 6, title: "પેશીઓ", defaultUrl: "https://linkvertise.com/sample/class9-gu-sci-ch6" },
+            { ch: 7, title: "ગતિ", defaultUrl: "https://linkvertise.com/sample/class9-gu-sci-ch7" },
+            { ch: 8, title: "બળ તથા ગતિના નિયમો", defaultUrl: "https://linkvertise.com/sample/class9-gu-sci-ch8" },
+            { ch: 9, title: "ગુરુત્વાકર્ષણ", defaultUrl: "https://linkvertise.com/sample/class9-gu-sci-ch9" },
+            { ch: 10, title: "કાર્ય અને ઊર્જા", defaultUrl: "https://linkvertise.com/sample/class9-gu-sci-ch10" },
+            { ch: 11, title: "ધ્વનિ", defaultUrl: "https://linkvertise.com/sample/class9-gu-sci-ch11" },
+            { ch: 12, title: "અન્નસ્રોતોમાં સુધારણા", defaultUrl: "https://linkvertise.com/sample/class9-gu-sci-ch12" }
+          ],
+          "Social Science": [
+            { ch: 1, title: "ભારતમાં બ્રિટિશ સત્તાનો ઉદય", defaultUrl: "https://linkvertise.com/sample/class9-gu-ss-ch1" },
+            { ch: 2, title: "પ્રથમ વિશ્વયુદ્ધ અને રશિયન ક્રાંતિ", defaultUrl: "https://linkvertise.com/sample/class9-gu-ss-ch2" },
+            { ch: 3, title: "નૂતન વિશ્વ તરફ પ્રયાણ", defaultUrl: "https://linkvertise.com/sample/class9-ss-ch3" },
+            { ch: 4, title: "ભારતની રાષ્ટ્રીય ચળવળો", defaultUrl: "https://linkvertise.com/sample/class9-ss-ch4" },
+            { ch: 5, title: "ભારત આઝાદી તરફ પ્રયાણ", defaultUrl: "https://linkvertise.com/sample/class9-ss-ch5" },
+            { ch: 6, title: "1945 પછીનું વિશ્વ", defaultUrl: "https://linkvertise.com/sample/class9-ss-ch6" }
+          ]
+        }
+      }
+    };
+
+    // Subject Dictionary by Medium
+    const SUBJECT_TITLES = {
+      "English": ["Mathematics", "Science", "Social Science"],
+      "Gujarati": ["ગણિત", "વિજ્ઞાન", "સામાજિક વિજ્ઞાન"]
+    };
+
+    // Mapping English Subject Names to Gujarati Subject Names for Data Lookup
+    const SUBJECT_MAP = {
+      "Mathematics": "Mathematics",
+      "Science": "Science",
+      "Social Science": "Social Science",
+      "ગણિત": "Mathematics",
+      "વિજ્ઞાન": "Science",
+      "સામાજિક વિજ્ઞાન": "Social Science"
+    };
+
+    // Accordion FAQs
+    const FAQ_DATA = {
+      "English": [
+        { q: "How do I download chapter notes via Linkvertise?", a: "Click on 'Download Notes' on any chapter card. A modal will appear explaining the redirection. Click 'Continue to Download', follow the brief free steps on Linkvertise, and your file download will start immediately." },
+        { q: "Are all study materials based on the latest GSEB/NCERT syllabus?", a: "Yes, all materials strictly align with the current Gujarat Secondary Education Board (GSEB) and NCERT textbooks for Class 9 and Class 10." },
+        { q: "Where can I find Solutions and IMP Question Papers?", a: "The Solutions & IMP Papers section is currently under active development and will be released very soon." },
+        { q: "What is the NORTHSTAR Tracker?", a: "The Tracker is our dedicated progress tracking web application where students can monitor completed chapters and practice goals." }
+      ],
+      "Gujarati": [
+        { q: "લિંકવર્ટાઇઝ (Linkvertise) દ્વારા મટીરીયલ કેવી રીતે ડાઉનલોડ કરવું?", a: "કોઈપણ પ્રકરણ કાર્ડ પર 'અભ્યાસ મટીરીયલ ડાઉનલોડ કરો' બટન પર ક્લિક કરો. પોપ-અપ વિન્ડોમાં 'ડાઉનલોડ કરવા માટે આગળ વધો' પર ક્લિક કરી સરળ સ્ટેપ્સ પૂર્ણ કરવાથી તમારી ફાઇલ ડાઉનલોડ થઈ જશે." },
+        { q: "શું આ મટીરીયલ GSEB/NCERT ના નવા અભ્યાસક્રમ મુજબ છે?", a: "હા, તમામ અભ્યાસ સામગ્રી ગુજરાત માધ્યમિક બોર્ડ (GSEB) અને NCERT ના ધોરણ 9 અને 10 ના અદ્યતન પાઠ્યક્રમ મુજબ જ તૈયાર કરવામાં આવી છે." },
+        { q: "સોલ્યુશન્સ અને IMP પેપર્સ ક્યારે મળશે?", a: "સોલ્યુશન્સ અને IMP પેપર્સ વિભાગ પર હાલમાં કામ ચાલી રહ્યું છે અને ટૂંક સમયમાં જ અહીં ઉપલબ્ધ કરાવવામાં આવશે." },
+        { q: "NORTHSTAR Tracker શું છે?", a: "ટ્રેકર એ આપણી વિશેષ વેબ એપ છે જ્યાં વિદ્યાર્થીઓ પોતાની તૈયારી અને પૂરા થયેલા ચેપ્ટર્સનું ટ્રેકિંગ કરી શકે છે." }
+      ]
+    };
+
+    /* ==========================================================================
+       APP STATE MANAGEMENT
+       ========================================================================== */
+    let currentClass = '10';         // '10' or '9'
+    let currentMedium = 'English';   // 'English' or 'Gujarati'
+    let currentSubject = 'Mathematics'; // English key ('Mathematics', 'Science', 'Social Science')
+    
+    // User Authentication State
+    let currentUser = JSON.parse(localStorage.getItem('northstar_user') || 'null');
+
+    // Linkvertise Custom URL Overrides (stored in localStorage)
+    let linkOverrides = JSON.parse(localStorage.getItem('northstar_link_overrides') || '{}');
+
+    /* ==========================================================================
+       INITIALIZATION
+       ========================================================================== */
+    window.addEventListener('DOMContentLoaded', () => {
+      renderAuthHeader();
+      updateUIStrings();
+      renderSubjectPills();
+      renderChapters();
+      renderFAQs();
+    });
+
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobile-menu');
+      menu.classList.toggle('hidden');
+    }
+
+    /* ==========================================================================
+       CLASS & MEDIUM SELECTION LOGIC
+       ========================================================================== */
+    function selectClass(cls) {
+      currentClass = cls;
+      
+      // Update Segment UI Buttons
+      const btn10 = document.getElementById('class-10-btn');
+      const btn9 = document.getElementById('class-9-btn');
+
+      if (cls === '10') {
+        btn10.className = "flex-1 sm:flex-initial px-5 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all duration-200 shadow-sm bg-white text-apple-text";
+        btn9.className = "flex-1 sm:flex-initial px-5 py-2 rounded-lg text-xs sm:text-sm font-medium transition-all duration-200 text-apple-secondary hover:text-apple-text";
+      } else {
+        btn9.className = "flex-1 sm:flex-initial px-5 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all duration-200 shadow-sm bg-white text-apple-text";
+        btn10.className = "flex-1 sm:flex-initial px-5 py-2 rounded-lg text-xs sm:text-sm font-medium transition-all duration-200 text-apple-secondary hover:text-apple-text";
+      }
+
+      renderChapters();
+    }
+
+    function selectMedium(med) {
+      currentMedium = med;
+
+      // Update Medium UI Buttons
+      const btnEn = document.getElementById('medium-en-btn');
+      const btnGu = document.getElementById('medium-gu-btn');
+
+      if (med === 'English') {
+        btnEn.className = "flex-1 sm:flex-initial px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all duration-200 shadow-sm bg-white text-apple-text";
+        btnGu.className = "flex-1 sm:flex-initial px-4 py-2 rounded-lg text-xs sm:text-sm font-medium transition-all duration-200 text-apple-secondary hover:text-apple-text";
+      } else {
+        btnGu.className = "flex-1 sm:flex-initial px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all duration-200 shadow-sm bg-white text-apple-text";
+        btnEn.className = "flex-1 sm:flex-initial px-4 py-2 rounded-lg text-xs sm:text-sm font-medium transition-all duration-200 text-apple-secondary hover:text-apple-text";
+      }
+
+      updateUIStrings();
+      renderSubjectPills();
+      renderChapters();
+      renderFAQs();
+    }
+
+    // Dynamic UI labels according to medium
+    function updateUIStrings() {
+      const heading = document.getElementById('portal-heading');
+      const subheading = document.getElementById('portal-subheading');
+      const csTitle = document.getElementById('banner-coming-soon-title');
+      const csDesc = document.getElementById('banner-coming-soon-desc');
+      const faqHead = document.getElementById('faq-heading');
+      const faqSubhead = document.getElementById('faq-subheading');
+
+      if (currentMedium === 'Gujarati') {
+        heading.textContent = 'અભ્યાસ સામગ્રી';
+        subheading.textContent = 'પ્રકરણો મેળવવા માટે તમારો ધોરણ, માધ્યમ અને વિષય પસંદ કરો.';
+        csTitle.textContent = 'સોલ્યુશન્સ અને IMP પેપર્સ';
+        csDesc.textContent = 'સોલ્યુશન્સ અને IMP પેપર્સ: ટૂંક સમયમાં આવી રહ્યું છે !!';
+        faqHead.textContent = 'વારંવાર પૂછાતા પ્રશ્નો (FAQs)';
+        faqSubhead.textContent = 'ડાઉનલોડ અને અભ્યાસ સામગ્રી અંગેના તમારા પ્રશ્નોના જવાબો.';
+      } else {
+        heading.textContent = 'Study Materials';
+        subheading.textContent = 'Select your Class, Medium, and Subject to access chapters.';
+        csTitle.textContent = 'Solutions & IMP Papers';
+        csDesc.textContent = 'Solutions & IMP Papers: Coming Soon !!';
+        faqHead.textContent = 'Frequently Asked Questions';
+        faqSubhead.textContent = 'Get quick answers regarding downloads, syllabus, and study materials.';
+      }
+    }
+
+    /* ==========================================================================
+       SUBJECT PILL FILTER RENDERER
+       ========================================================================== */
+    function renderSubjectPills() {
+      const container = document.getElementById('subject-pill-container');
+      const subjects = SUBJECT_TITLES[currentMedium];
+
+      container.innerHTML = subjects.map(subj => {
+        const mappedKey = SUBJECT_MAP[subj];
+        const isActive = mappedKey === currentSubject;
+        
+        const activeClass = "bg-apple-accent text-white shadow-md shadow-apple-accent/20";
+        const inactiveClass = "bg-black/5 hover:bg-black/10 text-apple-text";
+
+        return `
+          <button onclick="selectSubject('${mappedKey}')" class="px-5 py-2.5 rounded-2xl text-xs sm:text-sm font-semibold transition-all duration-200 flex items-center gap-2 ${isActive ? activeClass : inactiveClass}">
+            <i class="ph-bold ${getSubjectIcon(mappedKey)} text-base"></i>
+            <span>${subj}</span>
+          </button>
+        `;
+      }).join('');
+    }
+
+    function selectSubject(subjectKey) {
+      currentSubject = subjectKey;
+      renderSubjectPills();
+      renderChapters();
+    }
+
+    function getSubjectIcon(subjKey) {
+      if (subjKey === 'Mathematics') return 'ph-calculator';
+      if (subjKey === 'Science') return 'ph-atom';
+      return 'ph-globe-hemisphere-west';
+    }
+
+    /* ==========================================================================
+       CHAPTER CARDS RENDERER
+       ========================================================================== */
+    function renderChapters() {
+      const grid = document.getElementById('chapter-grid');
+      const countBadge = document.getElementById('chapter-count-badge');
+      const titleHead = document.getElementById('selected-subject-title');
+
+      const subjectDataKey = currentSubject; // 'Mathematics', 'Science', 'Social Science'
+      const chaptersList = CURRICULUM_DATA[currentClass][currentMedium][subjectDataKey] || [];
+
+      // Update Subject Title Header
+      const mediumSubjName = currentMedium === 'Gujarati' 
+        ? (subjectDataKey === 'Mathematics' ? 'ગણિત' : subjectDataKey === 'Science' ? 'વિજ્ઞાન' : 'સામાજિક વિજ્ઞાન')
+        : subjectDataKey;
+
+      titleHead.innerHTML = `<i class="ph-bold ${getSubjectIcon(subjectDataKey)} text-apple-accent"></i> ${mediumSubjName} - Class ${currentClass}`;
+      countBadge.textContent = `${chaptersList.length} ${currentMedium === 'Gujarati' ? 'પ્રકરણો' : 'Chapters'}`;
+
+      if (chaptersList.length === 0) {
+        grid.innerHTML = `
+          <div class="col-span-full py-12 text-center glass-panel rounded-3xl space-y-3">
+            <i class="ph-bold ph-folder-open text-4xl text-apple-secondary"></i>
+            <p class="text-sm font-medium text-apple-secondary">No study materials available for this selection.</p>
+          </div>
+        `;
+        return;
+      }
+
+      grid.innerHTML = chaptersList.map(ch => {
+        // Check for override URL in localStorage
+        const overrideKey = `${currentClass}_${currentMedium}_${subjectDataKey}_ch${ch.ch}`;
+        const finalUrl = linkOverrides[overrideKey] || ch.defaultUrl;
+
+        const downloadBtnText = currentMedium === 'Gujarati' 
+          ? 'અભ્યાસ મટીરીયલ ડાઉનલોડ કરો' 
+          : 'Download Notes';
+
+        const chapterTagText = currentMedium === 'Gujarati' 
+          ? `પ્રકરણ ${ch.ch}` 
+          : `Chapter ${ch.ch}`;
+
+        return `
+          <div class="glass-panel rounded-3xl p-6 flex flex-col justify-between space-y-5 border border-white/80 shadow-apple hover:shadow-apple-hover transition-all duration-300 hover:-translate-y-1">
+            <div class="space-y-3">
+              <div class="flex items-center justify-between">
+                <span class="px-3 py-1 rounded-full text-[11px] font-bold bg-apple-ice text-apple-accent border border-blue-100/60">
+                  ${chapterTagText}
+                </span>
+                <span class="text-xs font-medium text-apple-secondary">
+                  GSEB & NCERT
+                </span>
+              </div>
+              <h4 class="text-lg font-bold text-apple-text tracking-tight leading-snug">
+                ${ch.title}
+              </h4>
+            </div>
+
+            <div class="pt-3 border-t border-apple-border/50">
+              <button onclick="openDownloadModal('${escapeJS(ch.title)}', '${escapeJS(finalUrl)}')" class="w-full py-3 px-4 rounded-2xl bg-apple-accent hover:bg-apple-accentHover text-white text-xs sm:text-sm font-semibold transition-all duration-200 shadow-md shadow-apple-accent/20 flex items-center justify-center gap-2">
+                <i class="ph-bold ph-download-simple text-base"></i>
+                <span>${downloadBtnText}</span>
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function escapeJS(str) {
+      return str.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+    }
+
+    /* ==========================================================================
+       DOWNLOAD MODAL & LINKVERTISE SYSTEM
+       ========================================================================== */
+    function openDownloadModal(chapterTitle, targetUrl) {
+      const modal = document.getElementById('download-modal');
+      const modalTitle = document.getElementById('modal-download-title');
+      const modalDesc = document.getElementById('modal-download-desc');
+      const continueBtn = document.getElementById('modal-continue-btn');
+
+      if (currentMedium === 'Gujarati') {
+        modalTitle.textContent = chapterTitle;
+        modalDesc.textContent = 'તમને અભ્યાસ સામગ્રી ડાઉનલોડ કરવા માટે લિંકવર્ટાઇઝ (Linkvertise) સર્વર પર મોકલવામાં આવી રહ્યા છે.';
+        continueBtn.innerHTML = `<span>ડાઉનલોડ કરવા માટે આગળ વધો</span> <i class="ph-bold ph-arrow-right"></i>`;
+      } else {
+        modalTitle.textContent = chapterTitle;
+        modalDesc.textContent = 'You are being redirected to our high-speed link server (Linkvertise) to fetch your requested GSEB study material.';
+        continueBtn.innerHTML = `<span>Continue to Download</span> <i class="ph-bold ph-arrow-right"></i>`;
+      }
+
+      continueBtn.href = targetUrl;
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeDownloadModal() {
+      const modal = document.getElementById('download-modal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    /* ==========================================================================
+       ADMIN PORTAL (Password Protected: RONALDO7)
+       ========================================================================== */
+    function openAdminModal() {
+      document.getElementById('admin-password').value = '';
+      document.getElementById('admin-error-msg').classList.add('hidden');
+      const modal = document.getElementById('admin-auth-modal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeAdminAuthModal() {
+      const modal = document.getElementById('admin-auth-modal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    function handleAdminAuth(e) {
+      e.preventDefault();
+      const pass = document.getElementById('admin-password').value.trim();
+      
+      if (pass === 'RONALDO7') {
+        closeAdminAuthModal();
+        openAdminDashboardModal();
+      } else {
+        document.getElementById('admin-error-msg').classList.remove('hidden');
+      }
+    }
+
+    function openAdminDashboardModal() {
+      renderAdminLinkList();
+      const modal = document.getElementById('admin-dashboard-modal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeAdminDashboardModal() {
+      const modal = document.getElementById('admin-dashboard-modal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+      renderChapters(); // Refresh main card view
+    }
+
+    function renderAdminLinkList() {
+      const cls = document.getElementById('admin-filter-class').value;
+      const med = document.getElementById('admin-filter-medium').value;
+      const subj = document.getElementById('admin-filter-subject').value;
+      const container = document.getElementById('admin-links-editor-list');
+
+      const chapters = CURRICULUM_DATA[cls][med][subj] || [];
+
+      if (chapters.length === 0) {
+        container.innerHTML = `<p class="text-xs text-apple-secondary text-center py-4">No chapters found for this combination.</p>`;
+        return;
+      }
+
+      container.innerHTML = chapters.map(ch => {
+        const overrideKey = `${cls}_${med}_${subj}_ch${ch.ch}`;
+        const currentUrl = linkOverrides[overrideKey] || ch.defaultUrl;
+
+        return `
+          <div class="bg-white/80 p-3.5 rounded-2xl border border-apple-border flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+            <div class="sm:w-1/3">
+              <span class="font-bold text-apple-text block">Ch ${ch.ch}: ${ch.title}</span>
+              <span class="text-[10px] text-apple-secondary">${cls}th ${med} • ${subj}</span>
+            </div>
+            <div class="flex-1 flex items-center gap-2">
+              <input type="url" id="input-${overrideKey}" value="${currentUrl}" class="w-full px-3 py-2 rounded-xl bg-apple-bg border border-apple-border text-xs focus:outline-none focus:border-apple-accent" />
+              <button onclick="saveAdminLink('${overrideKey}')" class="px-3 py-2 bg-slate-900 text-white rounded-xl hover:bg-black transition font-semibold shrink-0">
+                Save
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function saveAdminLink(overrideKey) {
+      const input = document.getElementById(`input-${overrideKey}`);
+      if (input && input.value) {
+        linkOverrides[overrideKey] = input.value.trim();
+        localStorage.setItem('northstar_link_overrides', JSON.stringify(linkOverrides));
+        
+        // Brief save notification style
+        input.classList.add('border-emerald-500', 'bg-emerald-50');
+        setTimeout(() => {
+          input.classList.remove('border-emerald-500', 'bg-emerald-50');
+        }, 1200);
+      }
+    }
+
+    function resetAllAdminLinks() {
+      if (confirm('Are you sure you want to reset all custom Linkvertise URLs to standard defaults?')) {
+        linkOverrides = {};
+        localStorage.removeItem('northstar_link_overrides');
+        renderAdminLinkList();
+        alert('All links successfully reset to defaults.');
+      }
+    }
+
+    /* ==========================================================================
+       AUTHENTICATION SYSTEM (Login, Sign Up, Password Reset)
+       ========================================================================== */
+    function renderAuthHeader() {
+      const container = document.getElementById('auth-header-container');
+
+      if (currentUser) {
+        container.innerHTML = `
+          <div class="flex items-center space-x-2">
+            <div class="w-9 h-9 rounded-full bg-gradient-to-tr from-apple-accent to-sky-400 text-white font-bold flex items-center justify-center text-xs shadow-md">
+              ${currentUser.name.charAt(0).toUpperCase()}
+            </div>
+            <div class="hidden sm:block text-left">
+              <span class="text-xs font-bold text-apple-text block leading-none">${currentUser.name}</span>
+              <button onclick="logoutUser()" class="text-[10px] font-semibold text-red-500 hover:underline">Sign Out</button>
+            </div>
+          </div>
+        `;
+      } else {
+        container.innerHTML = `
+          <button onclick="openAuthModal()" class="px-4 py-2 rounded-2xl bg-apple-accent hover:bg-apple-accentHover text-white text-xs font-semibold transition-all duration-200 shadow-sm shadow-apple-accent/20">
+            Sign In
+          </button>
+        `;
+      }
+    }
+
+    function openAuthModal() {
+      switchAuthView('signin');
+      const modal = document.getElementById('auth-modal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeAuthModal() {
+      const modal = document.getElementById('auth-modal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    function switchAuthView(view) {
+      document.getElementById('auth-signin-view').classList.add('hidden');
+      document.getElementById('auth-signup-view').classList.add('hidden');
+      document.getElementById('auth-forgot-view').classList.add('hidden');
+
+      if (view === 'signin') document.getElementById('auth-signin-view').classList.remove('hidden');
+      if (view === 'signup') document.getElementById('auth-signup-view').classList.remove('hidden');
+      if (view === 'forgot') {
+        document.getElementById('auth-forgot-view').classList.remove('hidden');
+        document.getElementById('otp-step-1').classList.remove('hidden');
+        document.getElementById('otp-step-2').classList.add('hidden');
+      }
+    }
+
+    function handleLoginSubmit(e) {
+      e.preventDefault();
+      const email = document.getElementById('login-email').value.trim();
+      const name = email.split('@')[0];
+
+      currentUser = { email, name };
+      localStorage.setItem('northstar_user', JSON.stringify(currentUser));
+      renderAuthHeader();
+      closeAuthModal();
+    }
+
+    function handleSignupSubmit(e) {
+      e.preventDefault();
+      const name = document.getElementById('signup-name').value.trim();
+      const email = document.getElementById('signup-email').value.trim();
+
+      currentUser = { email, name };
+      localStorage.setItem('northstar_user', JSON.stringify(currentUser));
+      renderAuthHeader();
+      closeAuthModal();
+    }
+
+    function logoutUser() {
+      currentUser = null;
+      localStorage.removeItem('northstar_user');
+      renderAuthHeader();
+    }
+
+    function sendOTP() {
+      const email = document.getElementById('forgot-email').value.trim();
+      if (!email) return;
+      document.getElementById('otp-step-1').classList.add('hidden');
+      document.getElementById('otp-step-2').classList.remove('hidden');
+    }
+
+    function verifyOTPAndReset() {
+      const otp = document.getElementById('otp-input').value.trim();
+      if (otp === '7777' || otp.length === 4) {
+        alert('Password successfully reset! You can now sign in.');
+        switchAuthView('signin');
+      } else {
+        alert('Invalid OTP! Please enter 7777 or a 4-digit code.');
+      }
+    }
+
+    /* ==========================================================================
+       FAQS & CHAT ASSISTANT LOGIC
+       ========================================================================== */
+    function renderFAQs() {
+      const container = document.getElementById('faq-accordion');
+      const faqs = FAQ_DATA[currentMedium] || FAQ_DATA['English'];
+
+      container.innerHTML = faqs.map((faq, index) => `
+        <div class="border border-apple-border/60 rounded-2xl bg-white/60 overflow-hidden transition">
+          <button onclick="toggleFAQ(${index})" class="w-full text-left p-4 text-xs sm:text-sm font-semibold text-apple-text flex justify-between items-center hover:bg-black/5 transition">
+            <span>${faq.q}</span>
+            <i class="ph-bold ph-caret-down text-apple-secondary text-sm transition-transform duration-200" id="faq-icon-${index}"></i>
+          </button>
+          <div id="faq-ans-${index}" class="hidden p-4 pt-0 text-xs text-apple-secondary leading-relaxed border-t border-apple-border/20 mt-1">
+            ${faq.a}
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function toggleFAQ(index) {
+      const ans = document.getElementById(`faq-ans-${index}`);
+      const icon = document.getElementById(`faq-icon-${index}`);
+
+      if (ans.classList.contains('hidden')) {
+        ans.classList.remove('hidden');
+        icon.classList.add('rotate-180');
+      } else {
+        ans.classList.add('hidden');
+        icon.classList.remove('rotate-180');
+      }
+    }
+
+    function handleChatSubmit(e) {
+      e.preventDefault();
+      const input = document.getElementById('chat-input');
+      const messages = document.getElementById('chat-messages');
+      const text = input.value.trim();
+
+      if (!text) return;
+
+      // User Message Bubble
+      const userBubble = document.createElement('div');
+      userBubble.className = 'bg-apple-accent text-white p-2.5 rounded-xl ml-auto max-w-[85%] text-xs shadow-sm';
+      userBubble.textContent = text;
+      messages.appendChild(userBubble);
+
+      input.value = '';
+      messages.scrollTop = messages.scrollHeight;
+
+      // Auto Response Simulation
+      setTimeout(() => {
+        const botBubble = document.createElement('div');
+        botBubble.className = 'bg-white p-2.5 rounded-xl text-apple-text shadow-sm max-w-[85%] border border-apple-border/40 text-xs';
+        
+        const lower = text.toLowerCase();
+        if (lower.includes('download') || lower.includes('link')) {
+          botBubble.textContent = 'To download notes, select your class and subject, then click "Download Notes". You will be redirected via Linkvertise.';
+        } else if (lower.includes('paper') || lower.includes('imp') || lower.includes('solution')) {
+          botBubble.textContent = 'Solutions and IMP Question Papers are coming very soon!';
+        } else {
+          botBubble.textContent = 'Thank you for reaching out! For instant help, explore the FAQ section or join our student community.';
+        }
+
+        messages.appendChild(botBubble);
+        messages.scrollTop = messages.scrollHeight;
+      }, 700);
+    }
+  </script>
 </body>
 </html>
